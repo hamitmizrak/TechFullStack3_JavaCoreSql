@@ -3,6 +3,7 @@ package com.hamitmizrak.javase.database;
 // Database Information
 abstract public class DatabaseInformation {
 
+    // Variable
     protected String url;
     protected String user;
     protected String password;
@@ -11,6 +12,10 @@ abstract public class DatabaseInformation {
     // Constructor (Parametresiz)
     public DatabaseInformation() {
         //Default Mysql
+        user="root";        // yanlıs verirsem: Caused by: java.sql.SQLException: Access denied for user 'root44'@'localhost' (using password: YES)
+        password="root";  // yanlıs verirsem: Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'   (using password: YES)
+        url="jdbc:mysql://localhost:3306/cars";
+        forNameData="com.mysql.cj.jdbc.Driver";
     }
 
     // Constructor (Parametreli)
