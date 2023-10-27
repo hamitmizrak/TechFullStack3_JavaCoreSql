@@ -1,7 +1,9 @@
 package com.hamitmizrak.javase.files;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -60,12 +62,22 @@ public class FilePathData {
     // File Writer
     private void secretFileWriter() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.url, true))) {
-            bufferedWriter.write("secret-key: ssh-keygen -t rsa -b 4096 -C 'hamitmizrak@gmail.com'");
+            String data="[ "+ localeDateTime()+" ]"+"secret-key: ssh-keygen -t rsa -b 4096 -C 'hamitmizrak@gmail.com'";
+            bufferedWriter.write(data);
             bufferedWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
     } //end Writer
+
+    // file Date
+    private String localeDateTime(){
+        Locale locale= new Locale("tr","TR");
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMMM-yyyy",locale);
+        Date date=new Date();
+        String changeDate=simpleDateFormat.format(date);
+        return changeDate;
+    }
 
     // File Reader
     private void secretFileReader() {
