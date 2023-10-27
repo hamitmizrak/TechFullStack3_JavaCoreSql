@@ -59,6 +59,15 @@ public class FilePathData {
                 '}';
     }
 
+    // file Date Locale
+    private String localeDateTime(){
+        Locale locale= new Locale("tr","TR");
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMMM-yyyy",locale);
+        Date date=new Date();
+        String changeDate=simpleDateFormat.format(date);
+        return changeDate;
+    }
+
     // File Writer
     private void secretFileWriter() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.url, true))) {
@@ -69,15 +78,6 @@ public class FilePathData {
             e.printStackTrace();
         }
     } //end Writer
-
-    // file Date
-    private String localeDateTime(){
-        Locale locale= new Locale("tr","TR");
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMMM-yyyy",locale);
-        Date date=new Date();
-        String changeDate=simpleDateFormat.format(date);
-        return changeDate;
-    }
 
     // File Reader
     private void secretFileReader() {
