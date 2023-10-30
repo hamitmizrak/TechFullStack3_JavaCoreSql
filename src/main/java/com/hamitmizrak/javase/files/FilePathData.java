@@ -34,9 +34,9 @@ public class FilePathData {
                 System.out.println("Permission: Okunabilinir mi ?" + file.canRead() + " yazılabilinir mi? " + file.canWrite() + " Çalıştırılabilinir mi " + file.canExecute());
                 // toString
                 System.out.println("ID: " + this.id + " URL: " + this.url + " Hash Code: " + file.hashCode());
-                secretFileWriter();// Writer
-                secretFileReader();// Reader
-                fileIsDelete(); // Delete
+                // logFileWriter();// Writer
+                // logFileReader();// Reader
+               // fileIsDelete(); // Delete
             } else {
                 String fileName = pathFileName + "Böyle bir dosya var tekrardan oluşturulmadı.";
                 System.out.println(fileName);
@@ -69,9 +69,9 @@ public class FilePathData {
     }
 
     // File Writer
-    private void secretFileWriter() {
+    public void logFileWriter(String email, String password) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.url, true))) {
-            String data="[ "+ localeDateTime()+" ]"+"secret-key: ssh-keygen -t rsa -b 4096 -C 'hamitmizrak@gmail.com'";
+            String data="[ "+ localeDateTime()+" ] "+email+" "+password;
             bufferedWriter.write(data);
             bufferedWriter.flush();
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class FilePathData {
     } //end Writer
 
     // File Reader
-    private void secretFileReader() {
+    public void logFileReader() {
         String rows; // okunan satır
         StringBuilder stringBuilder = new StringBuilder();
         String builderToString;
@@ -96,7 +96,7 @@ public class FilePathData {
     } //end Reader
 
     // File Delete
-    private void fileIsDelete(){
+    public void fileIsDelete(){
         Scanner klavye=new Scanner(System.in);
         char chooise;
         System.out.println(pathFileName+" bu dosyayı silmek ister misiniz ? E / H");

@@ -1,6 +1,8 @@
 package com.hamitmizrak.javase.dao;
 
 import com.hamitmizrak.javase.database.DatabaseConnection;
+import com.hamitmizrak.javase.dto.RegisterDto;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ public interface IDaoGenerics <T> {
 
     // UPDATE
     public T update(Long id, T t);
+    public RegisterDto updateRemaing(Long id, T t);
 
     // DELETE
     public T deleteById(T t);

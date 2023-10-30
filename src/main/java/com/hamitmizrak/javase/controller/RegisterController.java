@@ -3,13 +3,11 @@ package com.hamitmizrak.javase.controller;
 import com.hamitmizrak.javase.dao.IDaoGenerics;
 import com.hamitmizrak.javase.dao.RegisterDao;
 import com.hamitmizrak.javase.dto.RegisterDto;
-import com.hamitmizrak.javase.files.FilePathData;
 import java.util.ArrayList;
 
 public class RegisterController implements IDaoGenerics<RegisterDto> {
 
     // Injection
-    private FilePathData filePathData = new FilePathData(); //for log
     private RegisterDao registerDao = new RegisterDao();
 
 ////////////////////////////////////////////////////////////////////////
@@ -54,6 +52,11 @@ public class RegisterController implements IDaoGenerics<RegisterDto> {
     @Override
     public RegisterDto update(Long id, RegisterDto registerDto) {
         return registerDao.update(id, registerDto);
+    }
+
+    @Override
+    public RegisterDto updateRemaing(Long id, RegisterDto registerDto) {
+        return registerDao.updateRemaing(id,registerDto);
     }
 
     // DELETE BYID

@@ -99,13 +99,13 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
             // Transaction:
             connection.setAutoCommit(false); //default:true
             String sql = "INSERT INTO `cars`.`register` (`nick_name`,`email_address`,`password`,`roles`,`remaining_number`,`is_passive`) \n" +
-                    " VALUES ('?', '?', '?','?','?','?')";
+                    " VALUES (?, ?, ?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, registerDto.getuNickname());
             preparedStatement.setString(2, registerDto.getuEmailAddress());
             preparedStatement.setString(3, registerDto.getuPassword());
             preparedStatement.setString(4, registerDto.getRolles());
-            preparedStatement.setInt(5, registerDto.getRemainingNumber());
+            preparedStatement.setLong(5, registerDto.getRemainingNumber());
             preparedStatement.setBoolean(6, registerDto.getPassive());
             // executeUpdate: create, delete, update için kullanılır.
             int rowsEffected = preparedStatement.executeUpdate();
@@ -145,7 +145,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 registerDto.setuEmailAddress(resultSet.getString("email_address"));
                 registerDto.setuPassword(resultSet.getString("password"));
                 registerDto.setRolles(resultSet.getString("roles"));
-                registerDto.setRemainingNumber(resultSet.getInt("remaining_number"));
+                registerDto.setRemainingNumber(resultSet.getLong("remaining_number"));
                 registerDto.setPassive(resultSet.getBoolean("is_passive"));
                 registerDto.setSystemCreatedDate(resultSet.getDate("system_created_date"));
             }
@@ -164,7 +164,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
         RegisterDto registerDto=null;
         try (Connection connection = getInterfaceConnection()) {
             // Dikkat: email_address String olduğu için tırnak içinde yazıyoruz örneğin: email="hamitmizrak@gmail.com"
-            String sql = "SELECT * FROM cars.register where email_address='"+email+"'";
+            String sql = "SELECT * FROM cars.register where email_address='"+email+"\'";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             // executeUpdate() [create, delete, update]
             // Sorgularda  : executeQuery [list, find]
@@ -177,7 +177,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 registerDto.setuEmailAddress(resultSet.getString("email_address"));
                 registerDto.setuPassword(resultSet.getString("password"));
                 registerDto.setRolles(resultSet.getString("roles"));
-                registerDto.setRemainingNumber(resultSet.getInt("remaining_number"));
+                registerDto.setRemainingNumber(resultSet.getLong("remaining_number"));
                 registerDto.setPassive(resultSet.getBoolean("is_passive"));
                 registerDto.setSystemCreatedDate(resultSet.getDate("system_created_date"));
             }
@@ -210,7 +210,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 registerDto.setuEmailAddress(resultSet.getString("email_address"));
                 registerDto.setuPassword(resultSet.getString("password"));
                 registerDto.setRolles(resultSet.getString("roles"));
-                registerDto.setRemainingNumber(resultSet.getInt("remaining_number"));
+                registerDto.setRemainingNumber(resultSet.getLong("remaining_number"));
                 registerDto.setPassive(resultSet.getBoolean("is_passive"));
                 registerDto.setSystemCreatedDate(resultSet.getDate("system_created_date"));
                 list.add(registerDto);
@@ -240,7 +240,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
             preparedStatement.setString(2, registerDto.getuEmailAddress());
             preparedStatement.setString(3, registerDto.getuPassword());
             preparedStatement.setString(4, registerDto.getRolles());
-            preparedStatement.setInt(5, registerDto.getRemainingNumber());
+            preparedStatement.setLong(5, registerDto.getRemainingNumber());
             preparedStatement.setBoolean(6, registerDto.getPassive());
             preparedStatement.setLong(7, registerDto.getId());
             // executeUpdate: create, delete, update için kullanılır.
@@ -251,6 +251,39 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 connection.commit(); // başarılı
             } else {
                 System.err.println(RegisterDao.class + " !!! Başarısız Güncelleme Tamamdır");
+                connection.rollback(); // başarısız
+            }
+            return  registerDto; // eğer başarılı ise return registerDto
+        } catch (SQLException sql) {
+            sql.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    // UPDATE (REMAING NUMBER)
+    @Override
+    public RegisterDto updateRemaing(Long id, RegisterDto registerDto) {
+        try (Connection connection = getInterfaceConnection()) {
+            // Manipulation: executeUpdate() [create, delete, update]
+            // Sorgularda  : executeQuery [list, find]
+            // Transaction:
+            connection.setAutoCommit(false); //default:true
+            String sql = "UPDATE `cars`.`register` SET  `remaining_number`=?" +
+                    " WHERE `id` =?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, registerDto.getRemainingNumber());
+            preparedStatement.setLong(2, registerDto.getId());
+            // executeUpdate: create, delete, update için kullanılır.
+            int rowsEffected = preparedStatement.executeUpdate();
+            // eğer güncelle yapılmamışsa -1 değerini döner
+            if (rowsEffected > 0) {
+                System.out.println(RegisterDao.class + " Başarılı Kalan Hak Güncelleme Tamamdır");
+                connection.commit(); // başarılı
+            } else {
+                System.err.println(RegisterDao.class + " !!! Başarısız Kalan Hak Güncelleme Tamamdır");
                 connection.rollback(); // başarısız
             }
             return  registerDto; // eğer başarılı ise return registerDto
