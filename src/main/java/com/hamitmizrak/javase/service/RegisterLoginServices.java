@@ -90,7 +90,8 @@ public class RegisterLoginServices {
                 // Kullanıcının kalan hakkı
                 remaingNumber=registerEmailFind.getRemainingNumber();
                 remaingNumber--;
-                System.out.println("Kalan Hakkınız: "+remaingNumber);
+                registerEmailFind.setRemainingNumber(remaingNumber);
+                System.out.println("Kalan Hakkınız: "+registerEmailFind.getRemainingNumber());
                 System.out.println("Sifreniz veya Emailiniz yanlış girdiniz");
                 // Kalan Hak Database Eksilt
                 registerController.updateRemaing(remaingNumber,registerEmailFind);
