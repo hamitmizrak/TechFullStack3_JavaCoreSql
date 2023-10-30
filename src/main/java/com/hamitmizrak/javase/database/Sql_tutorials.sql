@@ -13,7 +13,7 @@ CREATE TABLE `cars`.`register` (
   `nick_name` VARCHAR(255) NULL DEFAULT 'takma adınıız yazmadınız.',
   `email_address` VARCHAR(255) NULL DEFAULT 'email adres yazmadınız',
   `password` VARCHAR(45) NULL DEFAULT 'şifrenizi girmediniz',
-  `roles` VARCHAR(5) NULL DEFAULT 'user',
+  `roles` VARCHAR(10) NULL DEFAULT 'user',
   `remaining_number` INT(2) NULL DEFAULT '4',
   `is_passive` VARCHAR(2) NULL DEFAULT '0',
   PRIMARY KEY (`id`))
@@ -23,6 +23,11 @@ CREATE TABLE `cars`.`register` (
 ALTER TABLE `cars`.`register` 
 ADD COLUMN `system_created_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP AFTER `is_passive`;
 
+-- Rolles
+ALTER TABLE `cars`.`register` 
+CHANGE COLUMN `roles` `roles` VARCHAR(10) NULL DEFAULT 'user' ;
+
+
 -- DELETE TABLE
 DROP TABLE `cars`.`register`;
 
@@ -30,13 +35,15 @@ DROP TABLE `cars`.`register`;
 TRUNCATE `cars`.`register`;
 
 -- INSERT
-INSERT INTO `cars`.`register` (`nick_name`, `email_address`, `password`, `roles`, `remaining_number`, `is_passive`) VALUES ('computer', 'hamitmizrak@gmail.com', '123456','user','5','0');
+-- insert into database.table () values ()
+INSERT INTO `cars`.`register` (`nick_name`, `email_address`, `password`, `roles`, `remaining_number`, `is_passive`) VALUES ('computer', 'hamitmizrak@gmail.com', '123456','admin','5','1');
 
 -- FIND
 SELECT * FROM cars.register where id=1;
 
 -- UPDATE
-UPDATE `cars`.`register` SET `nick_name`="nick", `email_address`="email@gmail.com", `password`="123456", `roles`="user", `remaining_number`=5, `is_passive`=0 WHERE (`id` = '1');
+-- update database.table  set attributes="içerik"
+UPDATE `cars`.`register` SET `nick_name`="nick44", `email_address`="email44@gmail.com", `password`="12345644", `roles`="user", `remaining_number`=44, `is_passive`=1 WHERE (`id` = '1');
 
 -- DELETE
 DELETE FROM `cars`.`register` WHERE (`id` = '1');
