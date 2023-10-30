@@ -57,7 +57,7 @@ public class RegisterLoginServices {
     }
 
     // LOGIN
-    private RegisterDto login() {
+    public RegisterDto login() {
         Scanner klavye = new Scanner(System.in);
         RegisterDto registerDto = new RegisterDto();
         String uEmailAddress, uPassword;
@@ -261,10 +261,4 @@ public class RegisterLoginServices {
         }
     } //end logout()
 
-
-    public static void main(String[] args) {
-        RegisterLoginServices services = new RegisterLoginServices();
-        //services.register();
-        services.login();
-    }
 } //end class
