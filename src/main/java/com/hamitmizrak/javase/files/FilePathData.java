@@ -72,7 +72,7 @@ public class FilePathData {
     public void logFileWriter(String email, String password) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.url, true))) {
             String data="[ "+ localeDateTime()+" ] "+email+" "+password;
-            bufferedWriter.write(data);
+            bufferedWriter.write(data+"\n");
             bufferedWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
