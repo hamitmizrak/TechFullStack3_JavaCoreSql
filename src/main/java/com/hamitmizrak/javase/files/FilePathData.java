@@ -86,10 +86,10 @@ public class FilePathData {
         String builderToString;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.url))) {
             while ((rows = bufferedReader.readLine()) != null) {
-                stringBuilder.append(rows);
+                stringBuilder.append(rows).append("\n");
             }
             builderToString=stringBuilder.toString();
-            System.out.println("OKUNDU:" +builderToString);
+            System.out.println("LOGLAMA:\n" +builderToString);
         } catch (Exception e) {
             e.printStackTrace();
         }

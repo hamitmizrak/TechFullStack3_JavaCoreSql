@@ -2,10 +2,10 @@ package com.hamitmizrak.javase.service;
 
 import com.hamitmizrak.javase.controller.RegisterController;
 import com.hamitmizrak.javase.dto.RegisterDto;
+import com.hamitmizrak.javase.exception.HamitMizrak0Exception;
 import com.hamitmizrak.javase.files.FilePathData;
 import com.hamitmizrak.javase.roles.ERoles;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 // Sifre masking
@@ -86,7 +86,7 @@ public class RegisterLoginServices {
 
             // Eğer kullanıcı varsa sisteme giriş yapsın
             if (uEmailAddress.equals(registerEmailFind.getuEmailAddress()) && uPassword.equals(registerEmailFind.getuPassword())) {
-                adminProcess();
+                adminProcess(registerEmailFind);
             } else {
                 // Kullanıcının kalan hakkı
                 remaingNumber = registerEmailFind.getRemainingNumber();
@@ -111,7 +111,7 @@ public class RegisterLoginServices {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
-    private void adminProcess() {
+    private void adminProcess(RegisterDto registerDto) {
         Scanner klavye = new Scanner(System.in);
         while (true) {
             System.out.println("\nADMIN SAYFASINA HOSGELDINIZ");
@@ -129,33 +129,64 @@ public class RegisterLoginServices {
                     memberList();
                     break;
                 case 2:
-                    System.out.println("Oluşturma");
-                    RegisterDto registerDtoCreate = memberCreate();
-                    System.out.println(registerDtoCreate);
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue())) {
+                        System.out.println("Oluşturma");
+                        RegisterDto registerDtoCreate = memberCreate();
+                        System.out.println(registerDtoCreate);
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
                     break;
                 case 3:
-                    memberList();
-                    System.out.println("ID'e göre Bulma");
-                    RegisterDto registerDtoFindId = memberFindById();
-                    System.out.println(registerDtoFindId);
+                    if ( registerDto.getRolles().equals(ERoles.ADMIN.getValue()) ||  registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
+                        memberList();
+                        System.out.println("ID'e göre Bulma");
+                        RegisterDto registerDtoFindId = memberFindById();
+                        /*if(registerDto.getId()==registerDtoFindId.getId()){
+                            System.out.println(registerController.findById(registerDto.getId()));
+                        }
+                        else{
+                            System.out.println(registerDtoFindId);
+                        }*/
+                        System.out.println(registerDtoFindId);
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
                     break;
                 case 4:
-                    memberList();
-                    System.out.println("Email'e göre bulma");
-                    RegisterDto registerDtoFindEmail = memberfindEmail();
-                    System.out.println(registerDtoFindEmail);
+                    if ( registerDto.getRolles().equals(ERoles.ADMIN.getValue()) || registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
+                        memberList();
+                        System.out.println("Email'e göre bulma");
+                        RegisterDto registerDtoFindEmail = memberfindEmail();
+                        System.out.println(registerDtoFindEmail);
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
                     break;
                 case 5:
-                    memberList();
-                    System.out.println("Güncelleme");
-                    RegisterDto registerDtoUpdate = memberUpdate();
-                    System.out.println(registerDtoUpdate);
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue())) {
+                        memberList();
+                        System.out.println("Güncelleme");
+                        RegisterDto registerDtoUpdate = memberUpdate();
+                        System.out.println(registerDtoUpdate);
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
                     break;
                 case 6:
-                    memberList();
-                    System.out.println("Silme");
-                    RegisterDto registerDtoDelete = memberDelete();
-                    System.out.println(registerDtoDelete);
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue())) {
+                        memberList();
+                        System.out.println("Silme");
+                        RegisterDto registerDtoDelete = memberDelete();
+                        System.out.println(registerDtoDelete);
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
                     break;
                 case 7:
                     logFile();
@@ -208,6 +239,10 @@ public class RegisterLoginServices {
         Boolean isPassive;
         System.out.println("Güncellemek istediğiniz ID  giriniz");
         id = klavye.nextLong();
+        // NOT: Scanner'da tam sayıdan sonra String Gelirse bir alt satıra geçiyor
+        // bunu engellemenin yolu klavye.nextLine()
+        klavye.nextLine();
+
         System.out.println("Güncellemek istediğiniz Takma adınızı giriniz");
         uNickname = klavye.nextLine();
         System.out.println("Güncellemek istediğiniz Emailinizi giriniz");
@@ -244,6 +279,7 @@ public class RegisterLoginServices {
 
     // LOGLAMA
     private void logFile() {
+        filePathData.logFileReader();
     }
 
 
