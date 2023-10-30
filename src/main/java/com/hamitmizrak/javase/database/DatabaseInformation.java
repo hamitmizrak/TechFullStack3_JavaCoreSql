@@ -58,4 +58,4 @@ abstract public class DatabaseInformation {
     public void setForNameData(String forNameData) {
         this.forNameData = forNameData;
     }
-}
+} //end class DatabaseInformation

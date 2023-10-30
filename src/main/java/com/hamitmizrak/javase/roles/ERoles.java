@@ -32,4 +32,4 @@ public enum ERoles {
     public String getValue() {
         return value;
     }
-}
+} //end Enum ERoles

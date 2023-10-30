@@ -22,9 +22,9 @@ public class DatabaseConnection extends DatabaseInformation {
     private DatabaseConnection() {
         try {
             Class.forName(this.forNameData);
-            System.out.println("Driver başarıyla Yüklendi");
+            //System.out.println("Driver başarıyla Yüklendi");
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Database bağlantısı başarılı");
+            //System.out.println("Database bağlantısı başarılı");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -63,4 +63,4 @@ public class DatabaseConnection extends DatabaseInformation {
         DatabaseConnection databaseConnection=new DatabaseConnection();
     }
 
-} //end class
+} //end class DatabaseConnection
