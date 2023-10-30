@@ -5,6 +5,7 @@ import com.hamitmizrak.javase.dto.RegisterDto;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -34,6 +35,8 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     @Override
     public RegisterDto create(RegisterDto registerDto) {
         try (Connection connection = getInterfaceConnection()) {
+            // Manipulation: executeUpdate() [create, delete, update]
+            // Sorgularda  : executeQuery [list, find]
             // Transaction:
             connection.setAutoCommit(false); //default:true
             String sql = "INSERT INTO `cars`.`register` (`nick_name`,`email_address`,`password`,`roles`,`remaining_number`,`is_passive`) \n" +
@@ -64,14 +67,67 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
         return null;
     }
 
-    // FIND
+    // FIND ID
     @Override
     public RegisterDto findById(Long id) {
+        RegisterDto registerDto=null;
+        try (Connection connection = getInterfaceConnection()) {
+            // Dikkat: id Long olduğu için tırnak içinde yazmıyoruz  örneğin: id=1
+            String sql = "SELECT * FROM cars.register where id="+id;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            // executeUpdate() [create, delete, update]
+            // Sorgularda  : executeQuery [list, find]
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while(resultSet.next()){
+                // nick_name, email_address, password, roles, remaining_number, is_passive
+                registerDto=new RegisterDto();
+                registerDto.setId(resultSet.getLong("id"));
+                registerDto.setuNickname(resultSet.getString("nick_name"));
+                registerDto.setuEmailAddress(resultSet.getString("email_address"));
+                registerDto.setuPassword(resultSet.getString("password"));
+                registerDto.setRolles(resultSet.getString("roles"));
+                registerDto.setRemainingNumber(resultSet.getInt("remaining_number"));
+                registerDto.setPassive(resultSet.getBoolean("is_passive"));
+                registerDto.setSystemCreatedDate(resultSet.getDate("system_created_date"));
+            }
+            return  registerDto; // eğer başarılı ise return registerDto
+        } catch (SQLException sql) {
+            sql.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
+    // FIND EMAIL
     @Override
     public RegisterDto findByEmail(String email) {
+        RegisterDto registerDto=null;
+        try (Connection connection = getInterfaceConnection()) {
+            // Dikkat: email_address String olduğu için tırnak içinde yazıyoruz örneğin: email="hamitmizrak@gmail.com"
+            String sql = "SELECT * FROM cars.register where email_address='"+email+"'";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            // executeUpdate() [create, delete, update]
+            // Sorgularda  : executeQuery [list, find]
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while(resultSet.next()){
+                // nick_name, email_address, password, roles, remaining_number, is_passive
+                registerDto=new RegisterDto();
+                registerDto.setId(resultSet.getLong("id"));
+                registerDto.setuNickname(resultSet.getString("nick_name"));
+                registerDto.setuEmailAddress(resultSet.getString("email_address"));
+                registerDto.setuPassword(resultSet.getString("password"));
+                registerDto.setRolles(resultSet.getString("roles"));
+                registerDto.setRemainingNumber(resultSet.getInt("remaining_number"));
+                registerDto.setPassive(resultSet.getBoolean("is_passive"));
+                registerDto.setSystemCreatedDate(resultSet.getDate("system_created_date"));
+            }
+            return  registerDto; // eğer başarılı ise return registerDto
+        } catch (SQLException sql) {
+            sql.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -85,9 +141,12 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     @Override
     public RegisterDto update(Long id, RegisterDto registerDto) {
         try (Connection connection = getInterfaceConnection()) {
+            // Manipulation: executeUpdate() [create, delete, update]
+            // Sorgularda  : executeQuery [list, find]
             // Transaction:
             connection.setAutoCommit(false); //default:true
-            String sql = "UPDATE `cars`.`register` SET `nick_name`=?, `email_address`=?, `password`=?, `roles`=?, `remaining_number`=?, `is_passive`=?" +
+            String sql = "UPDATE `cars`.`register` SET `nick_name`=?, `email_address`=?, `password`=?, `roles`=?, " +
+                    "`remaining_number`=?, `is_passive`=?" +
                     " WHERE `id` =?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, registerDto.getuNickname());
@@ -120,9 +179,11 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     @Override
     public RegisterDto deleteById(RegisterDto registerDto) {
         try (Connection connection = getInterfaceConnection()) {
+            // Manipulation: executeUpdate() [create, delete, update]
+            // Sorgularda  : executeQuery [list, find]
             // Transaction:
             connection.setAutoCommit(false); //default:true
-            String sql = "DELETE FROM `cars`.`register` WHERE (`id` = '1');";
+            String sql = "DELETE FROM `cars`.`register` WHERE (`id` = ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, registerDto.getId());
             // executeUpdate: create, delete, update için kullanılır.
@@ -143,4 +204,5 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
         }
         return null;
     }
+
 } //end class RegisterDao
