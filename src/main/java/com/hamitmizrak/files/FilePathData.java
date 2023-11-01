@@ -129,7 +129,6 @@ public class FilePathData {
         }
     }
 
-
     // File Delete
     // Rolles: admin(+)
     public void fileIsDelete(){
@@ -174,6 +173,18 @@ public class FilePathData {
         String fileName=klavye.nextLine().concat(".txt");
         pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
         url = pathDirectoryName.concat("\\").concat(fileName);
-        System.out.println("Dosya uzantısı"+ url);
+        System.out.println("Dosya uzantısı: "+ url);
+        // File Information
+        File file1=new File(url);
+        System.out.println("PATH: "+file1.getPath());
+        System.out.println("PARENT: "+file1.getParent());
+        System.out.println("TOTAL SPACE: "+file1.getTotalSpace());
+        System.out.println("FREE SPACE: "+file1.getFreeSpace());
+        System.out.println("READ: "+file1.canRead());
+        System.out.println("WRITE: "+file1.canWrite());
+        System.out.println("EXECUTE: "+file1.canExecute());
+        System.out.println("DİZİN MİDİR ?: "+file1.isDirectory());
+        System.out.println("DOSYA MIDIR ?: "+file1.isFile());
+        System.out.println("DOSYA GİZLİ MİDİR ?: "+file1.isHidden());
     }
 }// end class FilePathData
