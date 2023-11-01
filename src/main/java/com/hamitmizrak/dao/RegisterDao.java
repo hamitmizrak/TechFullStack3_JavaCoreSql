@@ -2,6 +2,7 @@ package com.hamitmizrak.dao;
 
 import com.hamitmizrak.dto.RegisterDto;
 import com.hamitmizrak.roles.ERoles;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -103,6 +104,11 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, registerDto.getuNickname());
             preparedStatement.setString(2, registerDto.getuEmailAddress());
+
+            //registerDto.setuPassword(resultSet.getString("password"));
+            // Sifrelemeyi olusturmak
+            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+
             preparedStatement.setString(3, registerDto.getuPassword());
             preparedStatement.setString(4, registerDto.getRolles());
             preparedStatement.setLong(5, registerDto.getRemainingNumber());
@@ -143,7 +149,6 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 registerDto.setId(resultSet.getLong("id"));
                 registerDto.setuNickname(resultSet.getString("nick_name"));
                 registerDto.setuEmailAddress(resultSet.getString("email_address"));
-                registerDto.setuPassword(resultSet.getString("password"));
                 registerDto.setRolles(resultSet.getString("roles"));
                 registerDto.setRemainingNumber(resultSet.getLong("remaining_number"));
                 registerDto.setPassive(resultSet.getBoolean("is_passive"));
