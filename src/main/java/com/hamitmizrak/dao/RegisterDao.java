@@ -91,12 +91,27 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
 
     ////////////////////////////////////////////////////////
 
-    // Sifreleme olustur
+    // Sifreleme olustur (Encoder)
     public String generatebCryptPasswordEncoder(String value){
         // Sifrelemeyi olusturmak
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String rawPassword = bCryptPasswordEncoder.encode(value);
         return rawPassword;
+    }
+
+    // Sifre karsilastir (Match)
+    public Boolean matchbCryptPassword(String fistValue, String rawPassword){
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        boolean isMatch=bCryptPasswordEncoder.matches(fistValue,rawPassword);
+        return isMatch;
+    }
+
+    public static void main(String[] args) {
+        RegisterDao registerDao=new RegisterDao();
+        String fistValue="123456";
+        String rawPassword=registerDao.generatebCryptPasswordEncoder(fistValue);
+        boolean result=registerDao.matchbCryptPassword(fistValue,rawPassword);
+        System.out.println(result);
     }
 
     ////////////////////////////////////////////////////////

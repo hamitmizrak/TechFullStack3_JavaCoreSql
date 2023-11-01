@@ -1,5 +1,6 @@
 package com.hamitmizrak.service;
 
+import com.hamitmizrak.dao.RegisterDao;
 import com.hamitmizrak.files.FilePathData;
 import com.hamitmizrak.controller.RegisterController;
 import com.hamitmizrak.dto.RegisterDto;
@@ -77,15 +78,21 @@ public class RegisterLoginServices {
             // Kayot olduktan sonra Login sayfasına geri dön
             login();
         } else {
-            // Eğer Kullanıcı Pasifse
+            // Eğer Kullanıcı Pasifse giris yapmasın
             if (registerEmailFind.getPassive() == false) {
                 System.out.println("Üyeliğiniz Pasif edilmiştir sisteme giriş yapamazsınız");
                 System.out.println("Lütfen admin'e başvurunuz.");
                 System.exit(0);
             }
 
-            // Eğer kullanıcı varsa sisteme giriş yapsın
-            if (uEmailAddress.equals(registerEmailFind.getuEmailAddress()) && uPassword.equals(registerEmailFind.getuPassword())) {
+            // Database kaydedilmis decode edilmis sifre karsilastirmak
+            RegisterDao registerDao=new RegisterDao();
+            String fistValue=uPassword;
+            String rawPassword=registerDao.generatebCryptPasswordEncoder(fistValue);
+            boolean result=registerDao.matchbCryptPassword(fistValue,registerEmailFind.getuPassword());
+
+            // Eğer kullanıcı varsa sisteme giriş yapsın    uPassword.equals(registerEmailFind.getuPassword()
+            if (uEmailAddress.equals(registerEmailFind.getuEmailAddress()) && registerDao.matchbCryptPassword(fistValue,registerEmailFind.getuPassword()) ) {
                 adminProcess(registerEmailFind);
             } else {
                 // Kullanıcının kalan hakkı
