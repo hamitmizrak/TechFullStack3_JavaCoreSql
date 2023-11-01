@@ -12,7 +12,7 @@ CREATE TABLE `cars`.`register` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nick_name` VARCHAR(255) NULL DEFAULT 'takma adınıız yazmadınız.',
   `email_address` VARCHAR(255) NULL DEFAULT 'email adres yazmadınız',
-  `password` VARCHAR(45) NULL DEFAULT 'şifrenizi girmediniz',
+  `password` VARCHAR(255) NULL DEFAULT 'şifrenizi girmediniz',
   `roles` VARCHAR(10) NULL DEFAULT 'user',
   `remaining_number` INT(2) NULL DEFAULT '4',
   `is_passive` VARCHAR(2) NULL DEFAULT '0',
