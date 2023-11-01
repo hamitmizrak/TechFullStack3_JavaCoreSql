@@ -18,6 +18,7 @@
 ```sh
 Projemiz Araba otomasyonudur.
 Sistemde ilgili email yoksa yeniden kayıt oluştur.
+Kullanıcı Şifresini Encoder -Masking yapalım.
 
 specialHomePage: 
 Roller:
@@ -69,11 +70,7 @@ Loglama (+)
 ```
 
 ---
-
 - asd
-- asd
-- asd
-
 
 ```sh
 Java Base Version: 21

@@ -5,15 +5,8 @@ import com.hamitmizrak.files.FilePathData;
 import com.hamitmizrak.controller.RegisterController;
 import com.hamitmizrak.dto.RegisterDto;
 import com.hamitmizrak.roles.ERoles;
-
 import java.util.Scanner;
 
-// Eğer sistemde ilgili email ile kullanıcı varsa sisteme giriş yapsın
-// Eğer sistemde ilgili email yoksa register olsun
-
-// Sifre masking
-// Enum Array
-// Rollere göre giriş yap
 
 public class RegisterLoginServices {
 
@@ -250,6 +243,8 @@ public class RegisterLoginServices {
         } //end while
     } //end method adminProcess
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // METHOD
     // just member login
     private void specialHomePage() {
         System.out.println("Sadece Üyeler Bu sayfayı görebilir.");

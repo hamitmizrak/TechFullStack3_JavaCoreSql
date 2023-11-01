@@ -16,7 +16,6 @@ public class RegisterDto extends BaseDto implements Serializable {
     private Boolean isPassive;
     private String rolles;
 
-
     // constructor(parametresiz)
     public RegisterDto() {
     }

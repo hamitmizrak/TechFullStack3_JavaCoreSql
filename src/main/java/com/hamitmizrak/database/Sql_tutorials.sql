@@ -27,7 +27,6 @@ ADD COLUMN `system_created_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP AFTER 
 ALTER TABLE `cars`.`register` 
 CHANGE COLUMN `roles` `roles` VARCHAR(10) NULL DEFAULT 'user' ;
 
-
 -- DELETE TABLE
 DROP TABLE `cars`.`register`;
 

@@ -19,6 +19,7 @@ connection.commit();   ==> Başarılı
 connection.rollback(); ==> Başarısız
  */
 
+// RegisterDao
 public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
 
     // SPEED DATA
@@ -87,7 +88,6 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
         }
         return list().size() + " tane veri silindi";
     }
-
 
     ////////////////////////////////////////////////////////
 

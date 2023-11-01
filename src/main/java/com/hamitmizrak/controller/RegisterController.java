@@ -24,6 +24,8 @@ public class RegisterController implements IDaoGenerics<RegisterDto> {
         return registerDao.allDelete();
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // C R U D
     // CREATE
     @Override
     public RegisterDto create(RegisterDto registerDto) {

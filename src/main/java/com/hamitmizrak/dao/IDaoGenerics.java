@@ -2,7 +2,6 @@ package com.hamitmizrak.dao;
 
 import com.hamitmizrak.database.DatabaseConnection;
 import com.hamitmizrak.dto.RegisterDto;
-
 import java.sql.Connection;
 import java.util.ArrayList;
 
