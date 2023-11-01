@@ -1,4 +1,4 @@
-package com.hamitmizrak.javase.files;
+package com.hamitmizrak.files;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -22,9 +22,9 @@ public class FilePathData {
         this.id = UUID.randomUUID().toString();
         this.systemCreatedDate = new Date(System.currentTimeMillis());
         pathFileName = "\\log.txt";
-        // C:\io\techcareer\full_3
+        // C:\io\techcareer\full_4
         pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
-        // C:\\io\\techcareer\\full_3\\log.txt
+        // C:\\io\\techcareer\\full_4\\log.txt
         url = pathDirectoryName.concat(pathFileName);
         file = new File(url);
         try {
@@ -45,6 +45,8 @@ public class FilePathData {
             e.printStackTrace();
         }
     } //end constructor
+
+    // Constructor (Parametreli)
 
     // toString
     @Override
@@ -95,17 +97,79 @@ public class FilePathData {
         }
     } //end Reader
 
+    // File Kendim yazacağım
+    public String specialFileCreate(String fileName){
+        this.id = UUID.randomUUID().toString();
+        this.systemCreatedDate = new Date(System.currentTimeMillis());
+        pathFileName = "\\"+fileName.concat(".txt");
+        pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
+        url = pathDirectoryName.concat(pathFileName);
+        this.file = new File(url);
+        try {
+            // Böyle bir dosya var mı?
+            if (file.createNewFile()) {
+                System.out.println(pathFileName + "Böyle bir dosya yoktur ve oluşturuldu.");
+            } else {
+                String fileNameData = pathFileName + "Böyle bir dosya var tekrardan oluşturulmadı.";
+                System.out.println(fileNameData);
+                return  fileNameData;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return url+ "olusturuldu";
+    }
+
+    // Dosya Listele
+    public void fileList(){
+        File fileList=new File(FilePathUrl.MY_FILE_PATH_URL);
+        for(File temp: fileList.listFiles()   ){
+            System.out.println(temp.getName());
+        }
+    }
+
+
     // File Delete
     public void fileIsDelete(){
         Scanner klavye=new Scanner(System.in);
+        //dosya isimleri göster
+        fileList();
+        System.out.println("Silmek istediğniiz dosya adını yazınız");
+        String fileName=klavye.nextLine().concat(".txt");
+        pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
+        url = pathDirectoryName.concat("\\").concat(fileName);
+        System.out.println("Dosya uzantısı"+ url);
+
         char chooise;
-        System.out.println(pathFileName+" bu dosyayı silmek ister misiniz ? E / H");
+        System.out.println(fileName+" bu dosyayı silmek ister misiniz ? E / H");
         chooise=klavye.nextLine().charAt(0);
         if(chooise=='E' || chooise=='e'){
-            file.exists();
+            try {
+                File fileDelete=new File(url);
+                if(fileDelete.exists()){
+                    fileDelete.delete();
+                    System.out.println("Dosyanız silindi");
+                }else{
+                    System.out.println("Olmayan dosyayı silememem!!!");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }else{
             System.out.println(pathFileName+ "Silinmedi");
         }
     }
 
+    // Informartion
+    public void fileProperties(){
+        System.out.println("Dosya Özellikler");
+        Scanner klavye=new Scanner(System.in);
+        //dosya isimleri göster
+        fileList();
+        System.out.println("Özelliklerine bakmak istediğiniz  dosya adını yazınız");
+        String fileName=klavye.nextLine().concat(".txt");
+        pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
+        url = pathDirectoryName.concat("\\").concat(fileName);
+        System.out.println("Dosya uzantısı"+ url);
+    }
 }// end class FilePathData

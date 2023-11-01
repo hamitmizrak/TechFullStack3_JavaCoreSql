@@ -1,8 +1,8 @@
-package com.hamitmizrak.javase.controller;
+package com.hamitmizrak.controller;
 
-import com.hamitmizrak.javase.dao.IDaoGenerics;
-import com.hamitmizrak.javase.dao.RegisterDao;
-import com.hamitmizrak.javase.dto.RegisterDto;
+import com.hamitmizrak.dao.RegisterDao;
+import com.hamitmizrak.dao.IDaoGenerics;
+import com.hamitmizrak.dto.RegisterDto;
 import java.util.ArrayList;
 
 public class RegisterController implements IDaoGenerics<RegisterDto> {
@@ -10,7 +10,7 @@ public class RegisterController implements IDaoGenerics<RegisterDto> {
     // Injection
     private RegisterDao registerDao = new RegisterDao();
 
-////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // SPEED DATA
     @Override
@@ -48,12 +48,13 @@ public class RegisterController implements IDaoGenerics<RegisterDto> {
         return registerDao.list();
     }
 
-    // UPDATE
+    // UPDATE Object
     @Override
     public RegisterDto update(Long id, RegisterDto registerDto) {
         return registerDao.update(id, registerDto);
     }
 
+    // UPDATE Remaing
     @Override
     public RegisterDto updateRemaing(Long id, RegisterDto registerDto) {
         return registerDao.updateRemaing(id,registerDto);

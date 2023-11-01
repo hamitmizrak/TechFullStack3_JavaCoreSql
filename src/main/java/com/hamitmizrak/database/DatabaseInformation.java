@@ -1,4 +1,4 @@
-package com.hamitmizrak.javase.database;
+package com.hamitmizrak.database;
 
 // Database Information
 abstract public class DatabaseInformation {
@@ -14,7 +14,7 @@ abstract public class DatabaseInformation {
         //Default Mysql
         user="root";        // yanlıs verirsem: Caused by: java.sql.SQLException: Access denied for user 'root44'@'localhost' (using password: YES)
         password="root";  // yanlıs verirsem: Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'   (using password: YES)
-        url="jdbc:mysql://localhost:3306/cars";
+        url="jdbc:mysql://localhost:3306/libraries";
         forNameData="com.mysql.cj.jdbc.Driver";
     }
 

@@ -1,4 +1,4 @@
-package com.hamitmizrak.javase.database;
+package com.hamitmizrak.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -60,7 +60,7 @@ public class DatabaseConnection extends DatabaseInformation {
     //////////////////////////////////////////////////////////////////////
     // PSVM
     public static void main(String[] args) {
-        //DatabaseConnection databaseConnection=new DatabaseConnection();
+       // DatabaseConnection databaseConnection=new DatabaseConnection();
     }
 
 } //end class DatabaseConnection

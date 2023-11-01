@@ -1,4 +1,4 @@
-package com.hamitmizrak.javase.exception;
+package com.hamitmizrak.exception;
 
 public class Created201Exception extends RuntimeException{
     public Created201Exception(String message) {

@@ -1,7 +1,7 @@
-package com.hamitmizrak.javase.dao;
+package com.hamitmizrak.dao;
 
-import com.hamitmizrak.javase.database.DatabaseConnection;
-import com.hamitmizrak.javase.dto.RegisterDto;
+import com.hamitmizrak.database.DatabaseConnection;
+import com.hamitmizrak.dto.RegisterDto;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -13,9 +13,6 @@ public interface IDaoGenerics <T> {
     public String allDelete();
 
     ////////////////////////////////////////////////////
-    // Counter
-
-    ///////////////////////////////////////////////////
 
     // C R U D
     // CREATE

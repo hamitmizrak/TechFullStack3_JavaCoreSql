@@ -1,4 +1,4 @@
-package com.hamitmizrak.javase.dto;
+package com.hamitmizrak.dto;
 
 import java.io.Serializable;
 import java.util.Date;

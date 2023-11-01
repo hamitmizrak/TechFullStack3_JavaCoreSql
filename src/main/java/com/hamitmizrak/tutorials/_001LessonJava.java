@@ -1,4 +1,4 @@
-package com.hamitmizrak.javase.tutorials;
+package com.hamitmizrak.tutorials;
 
 public class _001LessonJava {
 

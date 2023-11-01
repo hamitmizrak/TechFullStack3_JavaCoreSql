@@ -1,4 +1,4 @@
-package com.hamitmizrak.javase.exception;
+package com.hamitmizrak.exception;
 
 public class HamitMizrak0Exception extends RuntimeException{
     public HamitMizrak0Exception(String message) {

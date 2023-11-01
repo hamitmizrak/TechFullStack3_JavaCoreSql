@@ -1,4 +1,4 @@
-package com.hamitmizrak.javase.roles;
+package com.hamitmizrak.roles;
 
 // final verirsem;
 // 1-) Değişkende: sabit değer
