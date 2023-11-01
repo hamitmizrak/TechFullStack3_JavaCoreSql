@@ -22,9 +22,9 @@ public class FilePathData {
         this.id = UUID.randomUUID().toString();
         this.systemCreatedDate = new Date(System.currentTimeMillis());
         pathFileName = "\\log.txt";
-        // C:\io\techcareer\full_4
+        // C:\io\techcareer\full_3
         pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
-        // C:\\io\\techcareer\\full_4\\log.txt
+        // C:\\io\\techcareer\\full_3\\log.txt
         url = pathDirectoryName.concat(pathFileName);
         file = new File(url);
         try {
@@ -45,8 +45,6 @@ public class FilePathData {
             e.printStackTrace();
         }
     } //end constructor
-
-    // Constructor (Parametreli)
 
     // toString
     @Override
@@ -71,6 +69,7 @@ public class FilePathData {
     }
 
     // File Writer
+    // Rolles: admin(+) writer(+)
     public void logFileWriter(String email, String password) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.url, true))) {
             String data="[ "+ localeDateTime()+" ] "+email+" "+password;
@@ -97,7 +96,8 @@ public class FilePathData {
         }
     } //end Reader
 
-    // File Kendim yazacağım
+    // File Kendim yazacağım.
+    // Rolles: (admin ve Writer yetkisi var)
     public String specialFileCreate(String fileName){
         this.id = UUID.randomUUID().toString();
         this.systemCreatedDate = new Date(System.currentTimeMillis());
@@ -121,6 +121,7 @@ public class FilePathData {
     }
 
     // Dosya Listele
+    // Rolles: admin(+) writer(+)
     public void fileList(){
         File fileList=new File(FilePathUrl.MY_FILE_PATH_URL);
         for(File temp: fileList.listFiles()   ){
@@ -130,6 +131,7 @@ public class FilePathData {
 
 
     // File Delete
+    // Rolles: admin(+)
     public void fileIsDelete(){
         Scanner klavye=new Scanner(System.in);
         //dosya isimleri göster
@@ -146,6 +148,7 @@ public class FilePathData {
         if(chooise=='E' || chooise=='e'){
             try {
                 File fileDelete=new File(url);
+                //exists: boyle bir dosya var mı yokmu ?
                 if(fileDelete.exists()){
                     fileDelete.delete();
                     System.out.println("Dosyanız silindi");
@@ -161,6 +164,7 @@ public class FilePathData {
     }
 
     // Informartion
+    // Rolles: admin(+) writer(+)
     public void fileProperties(){
         System.out.println("Dosya Özellikler");
         Scanner klavye=new Scanner(System.in);

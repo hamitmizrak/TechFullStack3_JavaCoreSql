@@ -243,58 +243,35 @@ public class RegisterLoginServices {
         } //end while
     } //end method adminProcess
 
-    // CREATE FILE
-    private void specialFileCreateData() {
-        Scanner klavye = new Scanner(System.in);
-        System.out.println("Oluşturmak istediğiniz dosya adını giriniz");
-        String fileName = klavye.nextLine();
-        filePathData.specialFileCreate(fileName);
-    }
-
-    // File List , Information
-    private void fileListData() {
-        filePathData.fileList();
-    }
-
-    // File Delete
-    private void fileDeleteData() {
-        filePathData.fileIsDelete();
-    }
-
-    // File Information
-    private void fileInformation() {
-        filePathData.fileProperties();
-    }
-
     // just member login
     private void specialHomePage() {
         System.out.println("Sadece Üyeler Bu sayfayı görebilir.");
     }
 
     // CRUD
-    // LIST
+    // USER LIST
     private void memberList() {
         registerController.list().forEach(System.out::println);
     }
 
-    // CREATE
+    // USER CREATE
     private RegisterDto memberCreate() {
         return register();
     }
 
-    // Find Id
+    // USER Find Id
     private RegisterDto memberFindById() {
         System.out.println("Lütfen Bulmak istediğiniz ID giriniz");
         return registerController.findById(new Scanner(System.in).nextLong());
     }
 
-    // Find Email
+    // USER Find Email
     private RegisterDto memberfindEmail() {
         System.out.println("Lütfen Bulmak istediğiniz email giriniz");
         return registerController.findByEmail(new Scanner(System.in).nextLine());
     }
 
-    // Update
+    // USER Update
     private RegisterDto memberUpdate() {
         Scanner klavye = new Scanner(System.in);
         RegisterDto registerDto = new RegisterDto();
@@ -330,7 +307,7 @@ public class RegisterLoginServices {
         return registerController.update(id, registerDto);
     }
 
-    // Delete
+    // USER Delete
     private RegisterDto memberDelete() {
         Scanner klavye = new Scanner(System.in);
         RegisterDto registerDto = new RegisterDto();
@@ -364,4 +341,27 @@ public class RegisterLoginServices {
             System.out.println("Sistemden Çıkış yapılmadı");
         }
     } //end logout()
+
+    // CREATE FILE
+    private void specialFileCreateData() {
+        Scanner klavye = new Scanner(System.in);
+        System.out.println("Oluşturmak istediğiniz dosya adını giriniz");
+        String fileName = klavye.nextLine();
+        filePathData.specialFileCreate(fileName);
+    }
+
+    // File List , Information
+    private void fileListData() {
+        filePathData.fileList();
+    }
+
+    // File Delete
+    private void fileDeleteData() {
+        filePathData.fileIsDelete();
+    }
+
+    // File Information
+    private void fileInformation() {
+        filePathData.fileProperties();
+    }
 } //end class

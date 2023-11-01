@@ -14,7 +14,7 @@ abstract public class DatabaseInformation {
         //Default Mysql
         user="root";        // yanlıs verirsem: Caused by: java.sql.SQLException: Access denied for user 'root44'@'localhost' (using password: YES)
         password="root";  // yanlıs verirsem: Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'   (using password: YES)
-        url="jdbc:mysql://localhost:3306/libraries";
+        url="jdbc:mysql://localhost:3306/cars";
         forNameData="com.mysql.cj.jdbc.Driver";
     }
 
